@@ -34,11 +34,11 @@ public class GiftCard {
 		
 		@Column(name="maximum_amount")
 		@Max(value=1000,message="Maximum Amount should be less than or equals to 1000")
-		private float maxAmount=1000;
+		private float maxAmount;
 		
 		@Column(name=" minimum_amount")
 		@Min(value=100,message="Miniimum Amount should be less than or equals to 100")
-		private float minAmount=100;
+		private float minAmount;
 		
 		@Column(name="redemption_details")
 		@NotBlank(message="Add some redemptiondetails.")
