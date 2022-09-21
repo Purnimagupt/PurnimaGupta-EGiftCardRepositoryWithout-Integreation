@@ -25,15 +25,15 @@ import com.egiftcard.exception.InvalidIdException;
 import com.egiftcard.service.IGiftCardManagementService;
 
 @RestController
-@RequestMapping("/egiftcards/giftcard")
+@RequestMapping("/api/GiftCard")
 public class GiftCardManagementController {
 
 	@Autowired
 	private IGiftCardManagementService giftCardService;
 	
-	//http://localhost:8080/EGiftApp/egiftcards/giftcard/get
+	//http://localhost:8080/EGiftApp/api/GiftCard/getGiftCard
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@GetMapping("/get")
+	@GetMapping(value="/getGiftCard")
 	public ResponseEntity<List<GiftCard>>getAllGiftCard(){
 		List<GiftCard>giftCardList=giftCardService.getAllGiftCards();
 		if(giftCardList.isEmpty()) {
@@ -42,16 +42,16 @@ public class GiftCardManagementController {
 		return new ResponseEntity<List<GiftCard>>(giftCardList,HttpStatus.OK);
 	}
 	
-	//http://localhost:8080/EGiftApp/egiftcards/giftcard/getbyid/{giftCardId}
-	@GetMapping("/getbyid/{giftCardId}")
+	//http://localhost:8080/EGiftApp/api/GiftCard/getGiftCard/
+	@GetMapping(value="/getGiftCard/{giftCardId}")
 	public ResponseEntity<GiftCard>getGiftCardById(@PathVariable("giftCardId")Integer giftCardId)throws GiftCardNotFoundException,InvalidIdException{
 		GiftCard giftcardIdObj=giftCardService.getGiftCardById(giftCardId);
 		return new ResponseEntity<GiftCard>(giftcardIdObj,HttpStatus.OK);
 	}
 	
 	
-	//http://localhost:8080/EGiftApp/egiftcards/giftcard/update/{giftCardId}
-	@PutMapping("/update/{giftCardId}")
+	//http://localhost:8080/EGiftApp/api/GiftCard/update/
+	@PutMapping(value="/update/{giftCardId}")
 	public ResponseEntity<GiftCard>updateGiftCardById(@PathVariable int giftCardId,@Valid @RequestBody GiftCard giftCard)throws InvalidIdException{
 		
 		return new ResponseEntity<GiftCard>( giftCardService.updateGiftCardById(giftCardId,giftCard),HttpStatus.ACCEPTED);
@@ -59,16 +59,16 @@ public class GiftCardManagementController {
 	}
 	
 	
-	//http://localhost:8080/EGiftApp/egiftcards/giftcard/create
-	@PostMapping("/create")
+	//http://localhost:8080/EGiftApp/api/GiftCard/create
+	@PostMapping(value="/create")
 	public ResponseEntity<GiftCard>registerGiftCard(@Valid @RequestBody GiftCard giftCard)throws DuplicateGiftCardIdException,MethodArgumentNotValidException{
 		GiftCard registerGiftCard=giftCardService.registerGiftCard(giftCard);
 		return  ResponseEntity.ok(registerGiftCard);
 	}
 	
 	
-	//http://localhost:8080/EGiftApp/egiftcards/giftcard/delete/{giftCardId}
-	@DeleteMapping("/delete/{giftCardId}")
+	//http://localhost:8080/EGiftApp/api/GiftCard/delete/{giftCardId}
+	@DeleteMapping(value="/delete/{giftCardId}")
 	public ResponseEntity<String>deleteGiftCardById(@PathVariable("giftCardId")int giftCardId)throws InvalidIdException{
 		String deleteGiftCard=giftCardService.deleteGiftCardById(giftCardId);
 		return new ResponseEntity<String>(deleteGiftCard,HttpStatus.OK);
